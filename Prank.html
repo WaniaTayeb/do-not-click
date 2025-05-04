@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Do Not Click!</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 100px;
+      background: white;
+      transition: all 1s ease;
+    }
+    #prankButton {
+      background: red;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    #reset {
+      margin-top: 50px;
+      display: none;
+      background: green;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚠️ WARNING: Do Not Click The Red Button!</h1>
+  <button id="prankButton">DO NOT CLICK ❌</button>
+  <button id="reset">Fix Everything 🧹</button>
+
+  <script>
+    const prankButton = document.getElementById("prankButton");
+    const resetBtn = document.getElementById("reset");
+
+    prankButton.onclick = () => {
+      alert("😂 WHY DID YOU CLICK!? Now it's too late...");
+      document.body.style.transform = "rotate(180deg)";
+      document.body.style.background = "black";
+      document.body.style.color = "white";
+
+      // Rainbow background
+      let i = 0;
+      let rainbow = setInterval(() => {
+        document.body.style.background = `hsl(${i}, 100%, 50%)`;
+        i += 10;
+      }, 100);
+
+      // Emoji rain
+      let emojiRain = setInterval(() => {
+        let el = document.createElement("div");
+        el.innerText = "😂";
+        el.style.position = "fixed";
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.top = "0px";
+        el.style.fontSize = "30px";
+        el.style.zIndex = 9999;
+        el.style.pointerEvents = "none";
+        document.body.appendChild(el);
+        let top = 0;
+        let fall = setInterval(() => {
+          top += 5;
+          el.style.top = top + "px";
+          if (top > window.innerHeight) {
+            el.remove();
+            clearInterval(fall);
+          }
+        }, 30);
+      }, 150);
+
+      // Page shake
+      let shake = setInterval(() => {
+        document.body.style.marginLeft = Math.random() * 10 - 5 + "px";
+        document.body.style.marginTop = Math.random() * 10 - 5 + "px";
+      }, 50);
+
+      // Show reset button
+      resetBtn.style.display = "inline-block";
+
+      // Reset logic
+      resetBtn.onclick = () => {
+        clearInterval(rainbow);
+        clearInterval(emojiRain);
+        clearInterval(shake);
+        location.reload();
+      };
+    };
+  </script>
+
+</body>
+</html>
